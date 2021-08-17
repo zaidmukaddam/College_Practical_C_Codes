@@ -1,7 +1,7 @@
 #include <stdio.h>
 #define MAX 10
 
-int binarysum(int a[], int i, int n)
+float binarysum(float a[], int i, int n)
 {
     if (n == 1)
     {
@@ -20,22 +20,30 @@ int binarysum(int a[], int i, int n)
     }
 }
 
-int main()
+float main()
 {
-    int arr[MAX], n, i, sum;
-
+    float arr[MAX], sum;
+    int i,n;
     printf("Enter n: ");
     scanf("%d", &n);
 
     for (i = 0; i < n; i++)
     {
         printf("Enter a number of subscript %d: ", i);
-        scanf("%d", &arr[i]);
+        scanf("%f", &arr[i]);
     }
 
     sum = binarysum(arr, 0, n);
 
-    printf("The binary sum is: %d", sum);
+    printf("The binary sum is: %f", sum);
 
     return 0;
 }
+/* Output
+Enter n: 4 
+Enter a number of subscript 0: 23.5
+Enter a number of subscript 1: 12.2
+Enter a number of subscript 2: 13.5
+Enter a number of subscript 3: 3.1
+The binary sum is: 52.300003
+*/
