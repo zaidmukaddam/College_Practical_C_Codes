@@ -1,15 +1,20 @@
 #include <stdio.h>
+#include <stdlib.h>
 #define MAX 10
 
 int queue[MAX];
-int front = -1, rear = -1, external = 0, start = 0;
+int front = -1, rear = -1, size = 0, start = 0;
 
 int isEmpty()
 {
     if (front == -1 && rear == -1)
+    {
         return 1;
+    }
     else
+    {
         return 0;
+    }
 }
 
 int isFull()
@@ -20,14 +25,13 @@ int isFull()
         return 0;
 }
 
-void enqueue(int inp)
+void enqueue(int num)
 {
-    int i;
-    if (MAX == external)
+    if (isFull())
     {
-        printf("Queue overflow.");
+        printf("Queue is Full\n");
     }
-    else if (!isFull())
+    else
     {
         if (isEmpty())
         {
@@ -37,45 +41,31 @@ void enqueue(int inp)
         {
             rear = rear + 1;
         }
-        queue[rear] = inp;
-        external = external + 1;
-    }
-    else
-    {
-        queue[start] = inp;
-        start = start + 1;
-        external = external + 1;
-    }
-    for (i = 0; i <= rear; i++)
-    {
-        printf("%d ", queue[i]);
+        size++;
+        queue[rear] = num;
     }
 }
 
-void dequeue()
+int dequeue()
 {
-    int item, i;
-    if (isEmpty())
+    int val, i;
+    if (front == rear)
     {
-        printf("\nQueue Underflow\n");
-    }
-    else if (front == rear)
-    {
-        item = queue[front];
-        front = -1;
-        rear = -1;
+        val = queue[front];
+        front = rear = -1;
     }
     else
     {
-        item = queue[front];
-        front = front + 1;
+        val = queue[front];
+        front = 0;
+        for (i = front + 1; i <= rear; i++)
+        {
+            queue[i - 1] = queue[i];
+        }
+        rear = rear - 1;
     }
-    external = external - 1;
-    printf("Popped element is: %d\n", item);
-    for (i = front; i <= rear; i++)
-    {
-        printf("%d ", queue[i]);
-    }
+    size--;
+    return val;
 }
 
 int peek()
@@ -83,19 +73,9 @@ int peek()
     if (isEmpty())
     {
         printf("\nQueue Underflow\n");
-        return 0;
+        exit(1);
     }
     return queue[front];
-}
-
-void size()
-{
-    int total = 0, i;
-    for (i = front; i <= rear; i++)
-    {
-        total = total + 1;
-    }
-    printf("Size of current queue: %d\n", total);
 }
 
 void display()
@@ -104,7 +84,6 @@ void display()
     if (isEmpty())
     {
         printf("\nQueue is empty\n");
-        return;
     }
     printf("\nQueue is :\n\n");
     for (i = front; i <= rear; i++)
@@ -114,7 +93,7 @@ void display()
 
 void main()
 {
-    int inp, ch;
+    int inp, ch, item;
     do
     {
         printf("\n1.Enqueue\n");
@@ -134,15 +113,22 @@ void main()
             break;
 
         case 2:
-            dequeue();
+            if (!isEmpty())
+            {
+                item = dequeue();
+                printf("\nDequeued element is  %d\n", item);
+            }
+            else
+            {
+                printf("Queue is Empty");
+            }
             break;
-
         case 3:
-            printf("Element at front is:%d", peek());
+            printf("Element at front is: %d", peek());
             break;
 
         case 4:
-            size();
+            printf("The size of the Queue is %d", size);
             break;
 
         case 5:

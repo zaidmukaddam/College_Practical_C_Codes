@@ -67,7 +67,6 @@ void display()
     if (isEmpty())
     {
         printf("\nQueue is empty\n");
-        return;
     }
     printf("\nQueue is :\n\n");
     for (i = front; i <= rear; i++)
