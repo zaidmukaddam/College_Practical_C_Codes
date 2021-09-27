@@ -1,111 +1,131 @@
 #include <stdio.h>
 #include <stdlib.h>
-struct node
+
+#define max 10
+
+int s1[max];
+int s2[max];
+
+int t1 = -1;
+int t2 = -1;
+
+//pop elements from stack 1.
+int pop_1(int top)
 {
-    int data;
-    struct node *next;
-};
-void push(struct node **top, int data);
-int pop(struct node **top);
-struct queue
-{
-    struct node *stack1;
-    struct node *stack2;
-};
-void enqueue(struct queue *q, int x)
-{
-    push(&q->stack1, x);
-}
-void dequeue(struct queue *q)
-{
+    if (top == -1)
+    {
+        printf("Underflow!!\n");
+        exit(1);
+    }
     int x;
-    if (q->stack1 == NULL && q->stack2 == NULL)
-    {
-        printf("queue is empty");
-    }
-    if (q->stack2 == NULL)
-    {
-        while (q->stack1 != NULL)
-        {
-            x = pop(&q->stack1);
-            push(&q->stack2, x);
-        }
-    }
-    x = pop(&q->stack2);
-    printf("%d\n", x);
+    x = s1[top];
+    return x;
 }
-void push(struct node **top, int data)
+
+//pop elements from stack 2.
+int pop_2(int top)
 {
-    struct node *newnode = (struct node *)malloc(sizeof(struct node));
-    if (newnode == NULL)
+    if (top == -1)
     {
-        printf("Stack overflow \n");
+        printf("Underflow!!\n");
+        exit(1);
     }
-    newnode->data = data;
-    newnode->next = (*top);
-    (*top) = newnode;
+    int y;
+    y = s2[top];
+    return y;
 }
-int pop(struct node **top)
+
+//add elements in the stack 2.
+void add_s2(int item)
 {
-    int buff;
-    struct node *t;
-    if (*top == NULL)
+    if (t2 == max - 1)
     {
-        printf("Stack underflow \n");
-        return 0;
+        printf("overflow!!\n");
+        exit(1);
+    }
+    t2 += 1;
+    s2[t2] = item;
+}
+
+//for adding all the items back to s1.
+int add__s1(int item)
+{
+    t1 += 1;
+    s1[t1] = item;
+}
+
+void add_s1(int item);
+void add_s1(int item)
+{
+    if (t1 == max - 1)
+    {
+        printf("overflow!!\n");
+        exit(1);
+    }
+    else if (t1 == -1) //adding the first item normally in the stack 1.
+    {
+        t1 += 1;
+        s1[t1] = item;
     }
     else
     {
-        t = *top;
-        buff = t->data;
-        *top = t->next;
-        free(t);
-        return buff;
+        while (t1 != -1) //for emptying the stack1.
+        {
+            add_s2(pop_1(t1));
+            t1 -= 1;
+        }
+        t1 += 1;
+        s1[t1] = item; //adding the item to stack 1.
+    }
+    while (t2 != -1) //adding the elements from stack 2 -> stack1.
+    {
+        add__s1(pop_2(t2));
+        t2 -= 1;
     }
 }
-void display(struct node *top1, struct node *top2)
+
+//for displaying the content of the queue.
+void display()
 {
-    while (top1 != NULL)
-    {
-        printf("%d\n", top1->data);
-        top1 = top1->next;
-    }
-    while (top2 != NULL)
-    {
-        printf("%d\n", top2->data);
-        top2 = top2->next;
-    }
+    int i;
+    printf("displaying the current status!!\n");
+    for (i = t1; i >= 0; i--)
+        printf("%d ", s1[i]);
+    printf("\n");
 }
+
 int main()
 {
-    struct queue *q = (struct queue *)malloc(sizeof(struct queue));
-    int f = 0, a;
-    char ch = 'y';
-    q->stack1 = NULL;
-    q->stack2 = NULL;
-    while (ch == 'y' || ch == 'Y')
+    while (1)
     {
-        printf("enter ur choice\n1.add to queue\n2.remove from queue\n3.display\n4.exit\n");
-        scanf("%d", &f);
-        switch (f)
+        int ch, x, y;
+        printf("1.add\n2.delete\n3.display\n4.exit\n");
+        printf("please enter your choice: ");
+        scanf("%d", &ch);
+        switch (ch)
         {
         case 1:
-            printf("enter the element to be added to queue\n");
-            scanf("%d", &a);
-            enqueue(q, a);
+            printf("please enter the no. you want to add: ");
+            scanf("%d", &x);
+            add_s1(x);
             break;
         case 2:
-            dequeue(q);
+            y = pop_1(t1);
+            t1 -= 1;
+            printf("the no. you just popped out is: %d", y);
+            printf("\n");
             break;
         case 3:
-            display(q->stack1, q->stack2);
+            display();
             break;
         case 4:
             exit(1);
             break;
         default:
-            printf("invalid\n");
+            printf("please enter a valid choice!!\n");
             break;
         }
+        printf("\n");
     }
+    return 0;
 }

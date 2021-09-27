@@ -23,7 +23,7 @@ float binarysum(float a[], int i, int n)
 float main()
 {
     float arr[MAX], sum;
-    int i,n;
+    int i, n;
     printf("Enter n: ");
     scanf("%d", &n);
 

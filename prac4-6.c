@@ -8,7 +8,7 @@ void printit(int x)
         x--;
         printit(x);
     }
-    if (x != 1 )
+    if (x != 1)
     {
         printf("!");
     }

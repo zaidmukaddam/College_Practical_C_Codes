@@ -4,13 +4,15 @@ prg1 : Structure Variables Inventory Updating
 ***************************/
 #include <stdio.h>
 
-struct inventory {
+struct inventory
+{
     char name[20];
     float rate;
     int qty;
     float price;
 };
-struct inventory input_item(struct inventory a) {
+struct inventory input_item(struct inventory a)
+{
     printf("Enter Item Name : ");
     scanf("%s", &a.name);
     printf("Enter Item Rate : ");
@@ -20,7 +22,8 @@ struct inventory input_item(struct inventory a) {
     return a;
 }
 
-void output_item(struct inventory a) {
+void output_item(struct inventory a)
+{
     printf("OUTPUT\n");
     printf("Item Name : %s\n", a.name);
     printf("Item Rate : %f\n", a.rate);
@@ -28,12 +31,14 @@ void output_item(struct inventory a) {
     printf("Item Price : %f\n", a.price);
 }
 
-struct inventory calculate_price(struct inventory item) {
+struct inventory calculate_price(struct inventory item)
+{
     item.price = item.rate * item.qty;
     return item;
 }
 
-void main() {
+void main()
+{
     struct inventory item; //Single structure variable called item
 
     printf("Practical Prg1\n");

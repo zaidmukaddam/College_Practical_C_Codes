@@ -14,7 +14,7 @@ void towerOfHanoi(int n, char from_rod, char to_rod, char aux_rod)
 
 int main()
 {
-    int n = 3;                      
-    towerOfHanoi(n, 'A', 'C', 'B'); 
+    int n = 3;
+    towerOfHanoi(n, 'A', 'C', 'B');
     return 0;
 }

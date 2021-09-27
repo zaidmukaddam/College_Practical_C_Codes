@@ -13,7 +13,7 @@ int isEmpty()
         return 1;
     else
         return 0;
-} 
+}
 
 int isFull()
 {
@@ -21,7 +21,7 @@ int isFull()
         return 1;
     else
         return 0;
-} 
+}
 
 void enqueue(int item)
 {
@@ -35,7 +35,7 @@ void enqueue(int item)
     rear = rear + 1;
     queue_arr[rear] = item;
     size++;
-} 
+}
 
 int dequeue()
 {
@@ -49,7 +49,7 @@ int dequeue()
     front = front + 1;
     size--;
     return item;
-} 
+}
 
 int peek()
 {
@@ -112,9 +112,8 @@ int main()
             exit(1);
         default:
             printf("\nWrong choice\n");
-        } 
-    }     
+        }
+    }
 
     return 0;
-
-} 
+}

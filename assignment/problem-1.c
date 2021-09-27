@@ -1,7 +1,13 @@
 // Write a program to implement two stacks in one array.
 
+/*
+Write a program to implement two stacks in one array.
+Write a program to implement the queue ADT using (two stacks).
+Write a program to implement the stack ADT using two queues.
+Write a program to reverse the words in a sentence with a stack.
+*/
+
 #include <stdio.h>
-#include <conio.h>
 #define SIZE 10
 
 int ar[SIZE];
@@ -118,7 +124,6 @@ int main()
 
     //Trying to Pop From Empty Stack
     pop_stack1();
-    getch();
 
     return 0;
 }

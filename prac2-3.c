@@ -9,29 +9,34 @@ prg3 : Stack Implementaion using Array (Decimal to binary using Stack)
 char stack[MAX];
 int top = -1; //Stack empty if top == -1
 
-void push(int s) {
+void push(int s)
+{
     top = top + 1;
 
     stack[top] = s;
 }
 
-int pop() {
+int pop()
+{
     return stack[top--];
 }
 
-void main() {
-    int dec,i;
+void main()
+{
+    int dec, i;
 
     printf("Enter a decimal number: ");
-    scanf("%d",&dec);
+    scanf("%d", &dec);
 
-    while (dec!=0) {
-        push(dec%2);
-        dec=dec/2;
+    while (dec != 0)
+    {
+        push(dec % 2);
+        dec = dec / 2;
     }
 
-    for (i = top; i >-1; i--) {
-        printf("%d",pop());
+    for (i = top; i > -1; i--)
+    {
+        printf("%d", pop());
     }
     printf("\n");
 }
