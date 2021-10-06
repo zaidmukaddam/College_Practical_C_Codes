@@ -1,3 +1,5 @@
+// Write a program to implement the queue ADT using (two stacks).
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -96,23 +98,23 @@ void display()
 
 int main()
 {
-    while (1)
+    int ch, x, y;
+    do
     {
-        int ch, x, y;
-        printf("1.add\n2.delete\n3.display\n4.exit\n");
-        printf("please enter your choice: ");
+        printf("(1) Push\n(2) Pop\n(3) Display\n(4) Exit\n");
+        printf("Enter your choice: ");
         scanf("%d", &ch);
         switch (ch)
         {
         case 1:
-            printf("please enter the no. you want to add: ");
+            printf("Enter the no. to be added: ");
             scanf("%d", &x);
             add_s1(x);
             break;
         case 2:
             y = pop_1(t1);
             t1 -= 1;
-            printf("the no. you just popped out is: %d", y);
+            printf("The no. popped out is: %d", y);
             printf("\n");
             break;
         case 3:
@@ -122,10 +124,10 @@ int main()
             exit(1);
             break;
         default:
-            printf("please enter a valid choice!!\n");
+            printf("Please enter a valid choice!!\n");
             break;
         }
         printf("\n");
-    }
+    } while (ch != 4);
     return 0;
 }

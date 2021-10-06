@@ -1,129 +1,213 @@
 // Write a program to implement two stacks in one array.
 
-/*
-Write a program to implement two stacks in one array.
-Write a program to implement the queue ADT using (two stacks).
-Write a program to implement the stack ADT using two queues.
-Write a program to reverse the words in a sentence with a stack.
-*/
-
 #include <stdio.h>
-#define SIZE 10
 
-int ar[SIZE];
-int top1 = -1;
-int top2 = SIZE;
+#define MENU_DISP_S1 1
+#define MENU_DISP_S2 2
+#define MENU_PUSH_S1 3
+#define MENU_POP_S1 4
+#define MENU_TOP_S1 5
+#define MENU_PUSH_S2 6
+#define MENU_POP_S2 7
+#define MENU_TOP_S2 8
 
-//Functions to push data
-void push_stack1(int data)
+void run(int choice);
+void printMenu();
+
+/* Stack */
+#define MAX 10
+#define STACK_FRONT 1
+#define STACK_BACK 2
+
+static int stack[MAX];
+static int topFront = -1, topBack = MAX;
+
+// stackId: Front/Back stack
+void push(int stackId, int x);
+void pop(int stackId);
+int top(int stackId);
+int isEmpty(int stackId);
+void display(int stackId);
+
+void run(int choice)
 {
-    if (top1 < top2 - 1)
+    switch (choice)
     {
-        ar[++top1] = data;
+    case MENU_DISP_S1:
+    {
+        if (isEmpty(STACK_FRONT))
+        {
+            printf("Empty front stack.\n");
+            break;
+        }
+        else
+        {
+            display(STACK_FRONT);
+        }
+
+        break;
     }
-    else
+    case MENU_DISP_S2:
     {
-        printf("Stack Full! Cannot Push\n");
+        if (isEmpty(STACK_BACK))
+        {
+            printf("Empty back stack.\n");
+            break;
+        }
+        else
+        {
+            display(STACK_BACK);
+        }
+        break;
     }
-}
-void push_stack2(int data)
-{
-    if (top1 < top2 - 1)
+    case MENU_PUSH_S1:
     {
-        ar[--top2] = data;
+        int val;
+        printf("Enter value to push on front stack: ");
+        scanf("%d", &val);
+        push(STACK_FRONT, val);
+        break;
     }
-    else
+    case MENU_POP_S1:
     {
-        printf("Stack Full! Cannot Push\n");
+        printf("Popping front stack. \n");
+        pop(STACK_FRONT);
+        break;
+    }
+    case MENU_TOP_S1:
+    {
+        if (isEmpty(STACK_FRONT))
+            printf("Empty front stack.\n");
+        else
+            printf("Top of front stack: %d\n", top(STACK_FRONT));
+        break;
+    }
+    case MENU_PUSH_S2:
+    {
+        int val;
+        printf("Enter value to push on back stack: ");
+        scanf("%d", &val);
+        push(STACK_BACK, val);
+        break;
+    }
+    case MENU_POP_S2:
+    {
+        printf("Popping back stack.\n");
+        pop(STACK_FRONT);
+        break;
+    }
+    case MENU_TOP_S2:
+    {
+        if (isEmpty(STACK_BACK))
+            printf("Empty front stack.\n");
+        else
+            printf("Top of front stack: %d\n", top(STACK_BACK));
+        break;
+    }
     }
 }
 
-//Functions to pop data
-void pop_stack1()
+int isEmpty(int stackId)
 {
-    if (top1 >= 0)
-    {
-        int popped_value = ar[top1--];
-        printf("%d is being popped from Stack 1\n", popped_value);
-    }
-    else
-    {
-        printf("Stack Empty! Cannot Pop\n");
-    }
+    return (stackId == STACK_FRONT) ? (topFront == -1) : (topBack == MAX);
 }
-void pop_stack2()
+
+void push(int stackId, int x)
 {
-    if (top2 < SIZE)
+    if (stackId == STACK_FRONT)
     {
-        int popped_value = ar[top2++];
-        printf("%d is being popped from Stack 2\n", popped_value);
+        if (topFront == topBack - 1)
+        {
+            printf("Front stack overflow.\n");
+            return;
+        }
+        stack[++topFront] = x;
     }
-    else
+    if (stackId == STACK_BACK)
     {
-        printf("Stack Empty! Cannot Pop\n");
+        if (topBack == topFront + 1)
+        {
+            printf("Back stack overflow.\n");
+            return;
+        }
+        stack[--topBack] = x;
     }
 }
 
-//Functions to Print Stack 1 and Stack 2
-void print_stack1()
+void pop(int stackId)
 {
-    int i;
-    for (i = top1; i >= 0; --i)
+    if (stackId == STACK_FRONT)
     {
-        printf("%d ", ar[i]);
+        if (topFront == -1)
+        {
+            printf("Front stack underflow.\n");
+            return;
+        }
+        topFront--;
     }
-    printf("\n");
+
+    if (stackId == STACK_BACK)
+    {
+        if (topBack == MAX)
+        {
+            printf("Back stack underflow.\n");
+            return;
+        }
+        topBack++;
+    }
 }
-void print_stack2()
+
+int top(int stackId)
 {
-    int i;
-    for (i = top2; i < SIZE; ++i)
+    int topVal = 0;
+    if (stackId == STACK_FRONT && !isEmpty(STACK_FRONT))
+        topVal = stack[topFront];
+    if (stackId == STACK_BACK && !isEmpty(STACK_BACK))
+        topVal = stack[topBack];
+
+    return topVal;
+}
+
+void display(int stackId)
+{
+    if (stackId == STACK_FRONT)
     {
-        printf("%d ", ar[i]);
+        printf("FRONT STACK.\n");
+        for (int i = topFront; i >= 0; i--)
+            printf("[%d]\n", stack[i]);
+        printf("___________\n");
     }
-    printf("\n");
+
+    if (stackId == STACK_BACK)
+    {
+        printf("BACK STACK.\n");
+        for (int j = topBack; j < MAX; j++)
+            printf("[%d]\n", stack[j]);
+        printf("___________\n");
+    }
+}
+
+void printMenu()
+{
+    printf("(1) Display stack 1.\n");
+    printf("(2) Display stack 2.\n");
+    printf("(3) Push on stack 1.\n");
+    printf("(4) Pop stack 1.\n");
+    printf("(5) Top of stack 1.\n");
+    printf("(6) Push on stack 2.\n");
+    printf("(7) Pop stack 2.\n");
+    printf("(8) Top of stack 2.\n");
+    printf("(-1) Exit.\n");
 }
 
 int main()
 {
-    int ar[SIZE];
-    int i;
-    int num_of_ele;
-
-    printf("We can push a total of 10 values\n");
-
-    //Number of elements pushed in stack 1 is 6
-    //Number of elements pushed in stack 2 is 4
-
-    for (i = 1; i <= 6; ++i)
+    int choice;
+    do
     {
-        push_stack1(i);
-        printf("Value Pushed in Stack 1 is %d\n", i);
-    }
-    for (i = 1; i <= 4; ++i)
-    {
-        push_stack2(i);
-        printf("Value Pushed in Stack 2 is %d\n", i);
-    }
-
-    //Print Both Stacks
-    print_stack1();
-    print_stack2();
-
-    //Pushing on Stack Full
-    printf("Pushing Value in Stack 1 is %d\n", 11);
-    push_stack1(11);
-
-    //Popping All Elements From Stack 1
-    num_of_ele = top1 + 1;
-    while (num_of_ele)
-    {
-        pop_stack1();
-        --num_of_ele;
-    }
-
-    //Trying to Pop From Empty Stack
-    pop_stack1();
-
+        printMenu();
+        scanf("%d", &choice);
+        run(choice);
+    } while (choice != -1);
     return 0;
 }

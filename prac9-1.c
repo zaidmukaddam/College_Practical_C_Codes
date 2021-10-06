@@ -124,6 +124,7 @@ void delete_last()
     }
     size--;
 }
+
 // Add an element in the middle of the node
 void insert_middle()
 {
@@ -158,6 +159,43 @@ void insert_middle()
     size++;
 }
 
+// Add an element in the middle of the node
+void insert_middle_1()
+{
+    int m, n;
+    struct node *newNode;
+    struct node *temp;
+
+    printf("Enter m: ");
+    scanf("%d", &m);
+    printf("Enter n: ");
+    scanf("%d", &n);
+    newNode = (struct node *)malloc(sizeof(struct node));
+    newNode->num = m;
+    newNode->next = NULL;
+
+    temp = head;
+
+    while (temp->num != n)
+    {
+        temp = temp->next;
+        if (temp == NULL)
+        {
+            break;
+        }
+    }
+    if (temp == NULL)
+    {
+        printf("The number %d does not exist\n", n);
+    }
+    else
+    {
+        newNode->next = temp->next;
+        temp->next = newNode;
+    }
+    size++;
+}
+
 // Delete any Element of the node
 void delete_any(struct node **head, int position)
 {
@@ -186,6 +224,40 @@ void delete_any(struct node **head, int position)
     free(temp->next);
 
     temp->next = next;
+    size--;
+}
+
+// Delete any Element of the node
+void delete_any_1()
+{
+    int n;
+    struct node *ptr, *prev;
+    ptr = head;
+    prev = head;
+
+    printf("Enter the number to be deleted: ");
+    scanf("%d", &n);
+
+    while (ptr->num != n)
+    {
+        prev = ptr;
+        ptr = ptr->next;
+        if (ptr == NULL)
+        {
+            break;
+        }
+    }
+
+    if (ptr == NULL)
+    {
+        printf("The number %d does not exist\n", n);
+    }
+    else
+    {
+        prev->next = ptr->next;
+        printf("Deteted number %d\n", ptr->num);
+        free(ptr);
+    }
     size--;
 }
 
@@ -243,12 +315,13 @@ int main()
             display();
             break;
         case 6:
-            insert_middle();
+            insert_middle_1();
             break;
         case 7:
-            printf("Enter a position to detele: ");
-            scanf("%d", &pos);
-            delete_any(&head, pos);
+            // printf("Enter a position to detele: ");
+            // scanf("%d", &pos);
+            // delete_any(&head, pos);
+            delete_any_1();
             break;
         case 8:
             break;
