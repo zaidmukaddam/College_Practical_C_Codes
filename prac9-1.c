@@ -128,40 +128,6 @@ void delete_last()
 // Add an element in the middle of the node
 void insert_middle()
 {
-    int data;
-    printf("Enter a value: ");
-    scanf("%d", &data);
-    struct node *newNode = (struct node *)malloc(sizeof(struct node));
-    newNode->num = data;
-    newNode->next = NULL;
-
-    if (head == NULL)
-    {
-        head = newNode;
-    }
-    else
-    {
-        struct node *temp, *current;
-        int count = (size % 2 == 0) ? (size / 2) : ((size + 1) / 2);
-
-        temp = head;
-        current = NULL;
-
-        for (int i = 0; i < count; i++)
-        {
-            current = temp;
-            temp = temp->next;
-        }
-
-        current->next = newNode;
-        newNode->next = temp;
-    }
-    size++;
-}
-
-// Add an element in the middle of the node
-void insert_middle_1()
-{
     int m, n;
     struct node *newNode;
     struct node *temp;
@@ -197,38 +163,7 @@ void insert_middle_1()
 }
 
 // Delete any Element of the node
-void delete_any(struct node **head, int position)
-{
-    if (*head == NULL)
-        return;
-
-    struct node *temp = *head;
-
-    if (position == 0)
-    {
-        *head = temp->next;
-        free(temp);
-        return;
-    }
-
-    for (int i = 0; temp != NULL && i < position - 1; i++)
-        temp = temp->next;
-
-    if (temp == NULL || temp->next == NULL)
-        return;
-
-    struct node *next = temp->next->next;
-
-    printf("Deleted Node is %d\n", temp->next->num);
-
-    free(temp->next);
-
-    temp->next = next;
-    size--;
-}
-
-// Delete any Element of the node
-void delete_any_1()
+void delete_any()
 {
     int n;
     struct node *ptr, *prev;
@@ -315,13 +250,10 @@ int main()
             display();
             break;
         case 6:
-            insert_middle_1();
+            insert_middle();
             break;
         case 7:
-            // printf("Enter a position to detele: ");
-            // scanf("%d", &pos);
-            // delete_any(&head, pos);
-            delete_any_1();
+            delete_any();
             break;
         case 8:
             break;
