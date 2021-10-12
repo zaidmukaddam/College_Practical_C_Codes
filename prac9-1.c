@@ -217,7 +217,7 @@ void display()
 
 int main()
 {
-    int choice, pos;
+    int choice;
 
     do
     {
@@ -228,7 +228,8 @@ int main()
         printf("5. Display the Linked List\n");
         printf("6. Add a value in the middle of the Linked List\n");
         printf("7. Delete any value of the Linked List\n");
-        printf("8. Quit\n");
+        printf("8. Display Size of the Linked List\n");
+        printf("9. Quit\n");
         printf("Enter a choice: ");
         scanf("%d", &choice);
 
@@ -256,12 +257,15 @@ int main()
             delete_any();
             break;
         case 8:
+            printf("The Size of the Linked List is: %d", size);
+            break;
+        case 9:
             break;
         default:
             printf("Wrong Input");
             break;
         }
-    } while (choice != 8);
+    } while (choice != 9);
 
     return 0;
 }
