@@ -17,7 +17,7 @@ void push()
     int n;
     struct node *newNode;
     newNode = (struct node *)malloc(sizeof(struct node));
-    printf("Enter a number: ");
+    printf(" Enter a number: ");
     scanf("%d", &n);
     newNode->num = n;
     newNode->next = NULL;
@@ -39,13 +39,13 @@ void pop()
 
     if (top == NULL)
     {
-        printf("UnderFlow condition: Stack is Empty");
+        printf(" UnderFlow condition: Stack is Empty");
     }
     else
     {
         ptr = top;
         top = top->next;
-        printf("The deleted number is %d\n", ptr->num);
+        printf(" The deleted number is %d\n", ptr->num);
         free(ptr);
     }
 }
@@ -54,7 +54,7 @@ void enqueue()
 {
     struct node *newNode;
     int n;
-    printf("Enter a value: ");
+    printf(" Enter a value: ");
     scanf("%d", &n);
     newNode = (struct node *)malloc(sizeof(struct node));
     newNode->num = n;
@@ -77,13 +77,13 @@ void dequeue()
     struct node *ptr;
     if (front == NULL)
     {
-        printf("Underflow Condition-Queue is Empty\n");
+        printf(" Underflow Condition-Queue is Empty\n");
     }
     else
     {
         ptr = front;
         front = front->next;
-        printf("Deleted node value is %d\n", ptr->num);
+        printf(" Deleted node value is %d\n", ptr->num);
         free(ptr);
     }
 }
@@ -92,7 +92,7 @@ void display(struct node *ptr)
 {
     while (ptr != NULL)
     {
-        printf("[%d]->", ptr->num);
+        printf(" [%d]->", ptr->num);
         ptr = ptr->next;
     }
     printf("\n");
@@ -100,7 +100,7 @@ void display(struct node *ptr)
 
 void peek(struct node *ptr)
 {
-    printf("The first node is %d\n", ptr->num);
+    printf(" The first node is %d\n", ptr->num);
 }
 
 int main()
@@ -108,15 +108,15 @@ int main()
     int choice, subchoice;
     do
     {
-        printf("Main Menu\n1. Stack\n2. Queue\n3. Quit\n");
+        printf("\nMain Menu\n1. Stack\n2. Queue\n3. Quit\n");
         printf("Enter an option: ");
         scanf("%d", &choice);
 
         switch (choice)
         {
         case 1:
-            printf("Sub Menu of Stack\n1. Push\n2. Pop\n3. Display\n4. Peek\n");
-            printf("Enter your choice: ");
+            printf("\n Sub Menu of Stack\n 1. Push\n 2. Pop\n 3. Display\n 4. Peek\n");
+            printf(" Enter your choice: ");
             scanf("%d", &subchoice);
             switch (subchoice)
             {
@@ -137,8 +137,8 @@ int main()
             }
             break;
         case 2:
-            printf("Sub Menu of Stack\n1. Enqueue\n2. Dequeue\n3. Display\n4. Peek\n");
-            printf("Enter your choice: ");
+            printf("\n Sub Menu of Stack\n 1. Enqueue\n 2. Dequeue\n 3. Display\n 4. Peek\n");
+            printf(" Enter your choice: ");
             scanf("%d", &subchoice);
             switch (subchoice)
             {
@@ -167,3 +167,34 @@ int main()
 
     return 0;
 }
+
+/*
+Test Case:
+1
+1
+12
+1
+1
+14
+1
+1
+15
+1
+2
+1
+3
+2
+1
+12
+2
+1
+14
+2
+1
+15
+2
+2
+2
+3
+
+*/
