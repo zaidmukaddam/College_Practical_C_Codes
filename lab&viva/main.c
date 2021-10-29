@@ -76,7 +76,6 @@ int main()
 
     do
     {
-
         printf("\nPlease select any option Given Below for Sorting : \n");
 
         printf("\n1. Insertion Sort\n2. Selection Sort\n3. Display Array.\n4. Exit the Program.\n");
