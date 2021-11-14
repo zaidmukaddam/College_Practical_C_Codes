@@ -3,7 +3,7 @@
 
 void countingsort(int arr[], int n, int exp)
 {
-    int output[n]; // output array
+    int output[n]; 
     int i, count[10] = {0};
 
     for (i = 0; i < n; i++)
@@ -69,13 +69,13 @@ int main()
         scanf("%d", &arr[i]);
     }
 
-    printf("\nThe input is\n");
+    printf("\nThe input is: ");
 
     printsort(arr, n);
 
     radixsort(arr, n);
 
-    printf("The sorted array is\n");
+    printf("The sorted array is: ");
 
     printsort(arr, n);
 
